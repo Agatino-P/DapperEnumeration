@@ -30,7 +30,6 @@ public class GetDataTests
     [Fact]
     public void ShouldSave()
     {
-        EntityWithEnumeration ewe = new EntityWithEnumeration(0, BoolEnum.No);
         string sqlQuery = @"
             INSERT INTO `test`.`testenum`
             (
@@ -42,16 +41,11 @@ public class GetDataTests
             );
         ";
 
-        testRow tr = new(ewe);
-        try
-        {
-            var rowsAffected = _mySqlConnection.ExecuteScalar<int>(sqlQuery, tr);
-        }
-        catch (Exception)
-        {
-
-            throw;
-        }
+        
+        testRow trNo = new(new EntityWithEnumeration(0, BoolEnum.No));
+        _mySqlConnection.ExecuteScalar<int>(sqlQuery, trNo);
+        testRow trYes = new(new EntityWithEnumeration(0, BoolEnum.Yes));
+        _mySqlConnection.ExecuteScalar<int>(sqlQuery, trYes);
 
     }
 
