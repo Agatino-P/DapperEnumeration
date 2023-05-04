@@ -1,0 +1,28 @@
+version: "3.7"
+  
+name: "percona"
+
+services:
+  percona:
+    image: percona:8.0.27-18
+    restart: unless-stopped    
+    environment:
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "123456Ab"
+      MYSQL_ROOT_PASSWORD: "123456Ab"
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+      - "2222:22"
+    expose:
+      - "3306"
+      - "33060"
+      - "22"
+    volumes:
+      - percona_data:/var/lib/mysql
+      - percona_logs:/var/log/mysql   
+
+
+volumes:
+  percona_data:
+  percona_logs:  
